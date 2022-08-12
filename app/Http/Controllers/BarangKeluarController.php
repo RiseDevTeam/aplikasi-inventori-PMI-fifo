@@ -47,6 +47,21 @@ class BarangKeluarController extends Controller
         }
     }
 
+    public function ajax_detailStok()
+    {
+        // untuk menglihatkan detail data stok pada sistem ketika memilih barang
+        if ($_POST['barang']) {
+            $kodeBarang = KelolaBarang::where('nama_barang', '=', $_POST['barang'])->first();
+
+            // tambahan untuk menampilkan detail stok barang
+            $ajax = Histori_stok::where('kode_barang', '=', $kodeBarang['kode_barang'])->get();
+
+            return response()->json([
+                "ajax" => $ajax
+            ]);
+        }
+    }
+
     public function store(Request $request)
     {
         // input data ke database barang masuk

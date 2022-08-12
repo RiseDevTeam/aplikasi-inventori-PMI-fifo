@@ -45,6 +45,14 @@
 
                                 </div>
 
+                                {{-- List Detail Stok --}}
+                                <div class="row mt-2 mb-2" >
+                                    <table id="detailStok">
+                                        
+                                    </table>
+                                    
+                                </div>
+
                                 <div class="form-group">
                                     @php
                                         date_default_timezone_set('Asia/Jakarta');
@@ -106,7 +114,7 @@
                 },
 
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     $('#harga_jual').val(response.harga_jual)
                     $('#kualitas').val(response.kualitas)
                     let data = response.ajax;
@@ -117,18 +125,74 @@
                     stokTersedia = data.stok_tersedia - stokExp;
 
                     view = `<div class="col">
-                                        <label for=""> Kode barang</label>
-                                        <input type="hidden" name="id_stok" value="${data.id_stok}">
-                                        <input type="text" name="kode_barang" class="form-control"
-                                            placeholder="Kode Tanaman" value="${data.kode_barang}" readonly>
-                                    </div>
-                                    <div class="col">
-                                        <label for=""> &nbsp; Stok Tersedia </label>
-                                        <input type="text" class="form-control" value="${stokTersedia}" placeholder="Stok Tersedia" readonly>
-                                    </div>`
+                                <label for=""> Kode barang</label>
+                                <input type="hidden" name="id_stok" value="${data.id_stok}">
+                                <input type="text" name="kode_barang" class="form-control"
+                                    placeholder="Kode Tanaman" value="${data.kode_barang}" readonly>
+                            </div>
+                            <div class="col">
+                                <label for=""> &nbsp; Stok Tersedia </label>
+                                <input type="text" class="form-control" value="${stokTersedia}" placeholder="Stok Tersedia" readonly>
+                            </div>`
 
                     document.getElementById('kode').innerHTML = view;
                     document.getElementById('tanggal').innerHTML = view1;
+                    
+                    console.log(val.value)
+                    detailStok(val.value)
+                }
+            })
+        }
+
+        // fungsi untuk menampilkan detail stok barang
+        function detailStok(val) {
+            $.ajax({
+                url: "{{ route('ajax_detail_stok') }}",
+                type: 'POST',
+                datatype: 'JSON',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "barang": val,
+                },
+
+                success: function(response) {
+                    let data = response.ajax;
+                    let viewDetail = "";
+
+                    viewDetail = `
+                        <tr>
+                            <td> &nbsp; Master Stok </td>
+                            <td> &nbsp; Stok Tersedia </td>
+                            <td> &nbsp; Tanggal Masuk </td>
+                        </tr>
+                    `;
+
+                    data.forEach(item => {
+                        viewDetail += `
+                            <tr>
+                                <td>
+                                    <div class="col">
+                                        <input type="text" class="form-control"
+                                            value="${item.stok_awal}" readonly>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col">
+                                        <input type="text" class="form-control"
+                                            value="${item.stok}" readonly>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col">
+                                        <input type="text" class="form-control"
+                                            value="${new Date(item.tanggal_input).toLocaleDateString("id")}" readonly>
+                                    </div>
+                                </td>
+                            </tr>
+                            `
+                    });
+
+                    document.getElementById('detailStok').innerHTML = viewDetail;
 
                 }
             })

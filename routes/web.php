@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('pengeluaran_stok', [BarangKeluarController::class, 'create'])->name('pengeluaran_stok');
         Route::POST('pengeluaran_stok', [BarangKeluarController::class, 'store'])->name('pengeluaran_stok');
         Route::POST('ajax', [BarangKeluarController::class, 'ajax_jual'])->name('ajax_jual');
+        Route::POST('ajax_detail_stok', [BarangKeluarController::class, 'ajax_detailStok'])->name('ajax_detail_stok');
         Route::get('histori', [BarangKeluarController::class, 'histori'])->name('histori_barang_keluar');
 
         Route::DELETE('barang_keluar/hapus/{id_barang_keluar}', [BarangKeluarController::class, 'destroy_barang_keluar'])->name('barang_keluar_delete');
