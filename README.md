@@ -7,25 +7,15 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## About Aplikasi
+
+<p> Aplikasi ini berfokus pada Inventori stok pada PMI, stok ini juga memakai metode FIFO untuk stok keluar pada sistem </p>
+<p> Untuk Hak akses memiliki aktor, pimpinan, admin, gudang </p>
+<p> Untuk Hak akses memiliki aktor, pimpinan, admin, gudang </p>
+<p> dan untuk identifikasi masalah, latarbelakang serta alur, bisa lihat di folder BAB </p>
+
 ## cara pemakaian aplikasi
 
 <p> 1. copy .env.example ke .env </p>
 <p> kalau mau memakai database silahkan ambil di folde db </p>
-
-## masih revisi
-
-<p> 1. di menu pengeluaran stok </p>
-
-<p> ketika di pilih nama barang dan stok tersedia muncul, tapi stok tersedia tidak tepat
-rumus stok stok terakhir tersedia => stok terakhir - stok expired
- </p>
-
-<p> 2. di menu kelola stok  </p>
-
-<p> di tambahkan 2 table lagi <br>
-a. total stok expired => ini akan muncul ketika tanggal expired pada produk sama atau lebih dari tanggal sekarang<br>
-b. total stok tersedia => rumus stok tersedia => stok terakhir - stok expired<br>
- </p>
-
-<p> 3. laporan akhir => masih error </p>
-<p> 4. laporan expired => masih error </p>
+<p> composer install </p>
